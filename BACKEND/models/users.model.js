@@ -1,21 +1,27 @@
 import mongoose from "mongoose";
 import bcrypt from 'bcryptjs';
-
+import jwt from 'jsonwebtoken';
 const userSchema = mongoose.Schema({
     firstName: {
         type: String,
-        required: true,
+        required: [true, 'First name is required'],
         trim: true
     },
     lastName: {
         type: String,
-        required: true,
+        required: [true, 'Last name is required'],
+        trim: true
+    },
+    email: {
+        type: String,
+        required: [true, 'Email is required'],
+        unique: true,
         trim: true
     },
     role: {
         type: String,
         enum: ['patient', 'dentist'],
-        required: true
+        required: [true, 'Role is required']
     },
     password: {
         type: String,
